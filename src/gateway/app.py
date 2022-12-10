@@ -19,7 +19,7 @@ def get_flights():
     size = request.args.get("size")
     print(page)
     print(size)
-    flight_response = requests.get(url=f"http://127.0.0.1:8060/api/v1/flights?page={page}&size={size}")
+    flight_response = requests.get(url=f"http://flight:8060/api/v1/flights?page={page}&size={size}")
     if flight_response.status_code == 200:
         print(123)
         return flight_response.json(), 200
@@ -35,8 +35,8 @@ def get_flights():
 def get_person():
     user = request.headers
     user = user["X-User-Name"]
-    tickets_info = requests.get(url=f"http://127.0.0.1:8070/api/v1/tickets/{user}")
-    privilege_info = requests.get(url=f"http://127.0.0.1:8050/api/v1/privilege/{user}")
+    tickets_info = requests.get(url=f"http://ticket:8070/api/v1/tickets/{user}")
+    privilege_info = requests.get(url=f"http://privilege:8050/api/v1/privilege/{user}")
 
     if tickets_info.status_code != 200 and privilege_info.status_code != 200:
         return "не найдена программа привилегий для пользователя и билеты пользователя", 404
@@ -61,7 +61,7 @@ def get_tickets():
     user = request.headers
     user = user["X-User-Name"]
 
-    tickets_info = requests.get(url=f"http://127.0.0.1:8070/api/v1/tickets/{user}")
+    tickets_info = requests.get(url=f"http://ticket:8070/api/v1/tickets/{user}")
     if tickets_info.status_code == 200:
         return tickets_info.json(), 200
     else:
@@ -74,7 +74,7 @@ def get_tickets():
 def get_ticket(ticketUid: str):
     user = request.headers
     user = user["X-User-Name"]
-    ticket_info = requests.get(url=f"http://127.0.0.1:8070/api/v1/tickets/{user}/{ticketUid}")
+    ticket_info = requests.get(url=f"http://ticket:8070/api/v1/tickets/{user}/{ticketUid}")
     if ticket_info.status_code == 200:
         return ticket_info.json(), 200
     else:
@@ -87,13 +87,13 @@ def get_ticket(ticketUid: str):
 def delete_ticket(ticketUid: str):
     user = request.headers
     user = user["X-User-Name"]
-    ticket_info = requests.delete(url=f"http://127.0.0.1:8070/api/v1/tickets/{user}/{ticketUid}")
+    ticket_info = requests.delete(url=f"http://ticket:8070/api/v1/tickets/{user}/{ticketUid}")
     if ticket_info.status_code != 200:
         return "Не найден билет", 404
     json_uid = {
         "ticketUid": ticketUid
     }
-    status = requests.post(url=f"http://127.0.0.1:8050/api/v1/back_bonuses", json=json_uid,
+    status = requests.post(url=f"http://privilege:8050/api/v1/back_bonuses", json=json_uid,
                            headers={"X-User-Name": user})
     if status.status_code != 200:
         return "Не найдена программа боунусов, билет возвращен", 404
@@ -118,12 +118,12 @@ def post_ticket():
     user = user["X-User-Name"]
     json_req = request.json
 
-    flight_info = requests.get(url=f'http://127.0.0.1:8060/api/v1/flights/{json_req["flightNumber"]}')
+    flight_info = requests.get(url=f'http://flight:8060/api/v1/flights/{json_req["flightNumber"]}')
     if flight_info.status_code != 200:
         return "не найден рейс", 404
     json_flight = flight_info.json()
 
-    ticket_info = requests.post(url=f"http://127.0.0.1:8070/api/v1/tickets", json=json_req,
+    ticket_info = requests.post(url=f"http://ticket:8070/api/v1/tickets", json=json_req,
                                 headers={"X-User-Name": user})
     json_ticket = ticket_info.json()
 
@@ -133,7 +133,7 @@ def post_ticket():
         "price": json_req["price"]
     }
 
-    privil_info = requests.post(url=f"http://127.0.0.1:8050/api/v1/buy", json=priv_json_send,
+    privil_info = requests.post(url=f"http://privilege:8050/api/v1/buy", json=priv_json_send,
                                 headers={"X-User-Name": user})
     json_privil = privil_info.json()
 
@@ -166,13 +166,13 @@ def post_ticket():
 def get_privilege():
     user = request.headers
     user = user["X-User-Name"]
-    privilege_info = requests.get(url=f"http://127.0.0.1:8050/api/v1/privileges/{user}")
+    privilege_info = requests.get(url=f"http://privilege:8050/api/v1/privileges/{user}")
     return privilege_info.json(), 200
 
 
 @app.route(f"/api/v1/flights/<ticketUid>", methods=["GET"])
 def get_flight_byticket(ticketUid: str):
-    req = requests.get(f"http://127.0.0.1:8060/api/v1/flights/{ticketUid}")
+    req = requests.get(f"http://flight:8060/api/v1/flights/{ticketUid}")
     return req.json(), 200
 
 
