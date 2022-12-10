@@ -7,7 +7,7 @@ from flask import Flask, request, jsonify, make_response
 app = Flask(__name__)
 
 
-gateway_ip = "localhost"
+gateway_ip = "gateway"
 
 @app.route('/api/v1/tickets/<user>', methods=["GET"])
 def get_tickets(user: str):

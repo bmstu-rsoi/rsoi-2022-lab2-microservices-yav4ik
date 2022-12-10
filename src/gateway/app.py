@@ -11,9 +11,9 @@ app = Flask(__name__)
 # privilege 8050
 # ticket 8070
 
-flights_ip = "localhost"
-privilege_ip = "localhost"
-ticket_ip = "localhost"
+flights_ip = "flight"
+privilege_ip = "privilege"
+ticket_ip = "ticket"
 
 # Получить список всех перелетов
 @app.route('/api/v1/flights', methods=["GET"])
