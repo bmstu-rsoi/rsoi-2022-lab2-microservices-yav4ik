@@ -2,9 +2,13 @@ import psycopg2
 import os
 
 #DB_URL = "host='localhost' port = '5432' dbname='postgres' user='post' password='1234' "
-host = os.environ['SERVERDB']
-password = os.environ['PASSWORDDB']
-database_user = os.environ['USER_AND_DEFAULT_DATABASE']
+# host = os.environ['SERVERDB']
+# password = os.environ['PASSWORDDB']
+# database_user = os.environ['USER_AND_DEFAULT_DATABASE']
+
+host = "mouse.db.elephantsql.com"
+password = "BPMLTkdUV0zHOuzt9I7pGLOveJ2bP1T4"
+database_user = "mtxqlmnr"
 
 def create_privilegedb():
     db = psycopg2.connect(

@@ -11,6 +11,7 @@ app = Flask(__name__)
 # privilege 8050
 # ticket 8070
 
+
 # Получить список всех перелетов
 @app.route('/api/v1/flights', methods=["GET"])
 def get_flights():
