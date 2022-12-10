@@ -45,7 +45,13 @@ def create_privilegedb():
 
 
 def get_base_privilege(user: str):
-    db = psycopg2.connect(DB_URL)
+    db = psycopg2.connect(
+        database="privileges",
+        user="program",
+        password="test",
+        host="127.0.0.1",
+        port="5432"
+    )
     cursor = db.cursor()
     cursor.execute(f"SELECT status, balance, id "
                    f"FROM privilege "
@@ -58,7 +64,13 @@ def get_base_privilege(user: str):
 
 
 def get_all_privilege(user: str):
-    db = psycopg2.connect(DB_URL)
+    db = psycopg2.connect(
+        database="privileges",
+        user="program",
+        password="test",
+        host="127.0.0.1",
+        port="5432"
+    )
     cursor = db.cursor()
     cursor.execute(f"SELECT status, balance, id "
                    f"FROM privilege "
@@ -74,7 +86,13 @@ def get_all_privilege(user: str):
 
 
 def minus_bonuses(req_pay: int, user: str, ticket_uid: str):
-    db = psycopg2.connect(DB_URL)
+    db = psycopg2.connect(
+        database="privileges",
+        user="program",
+        password="test",
+        host="127.0.0.1",
+        port="5432"
+    )
     cursor = db.cursor()
     cursor.execute(f"SELECT username FROM privilege WHERE username = '{user}';")
     username = cursor.fetchone()
@@ -105,7 +123,13 @@ def minus_bonuses(req_pay: int, user: str, ticket_uid: str):
 
 
 def back_bonuses(user: str, ticket_uid: str):
-    db = psycopg2.connect(DB_URL)
+    db = psycopg2.connect(
+        database="privileges",
+        user="program",
+        password="test",
+        host="127.0.0.1",
+        port="5432"
+    )
     cursor = db.cursor()
     cursor.execute(f"SELECT id, balance FROM privilege WHERE username = '{user}';")
     status = cursor.fetchone()
@@ -138,7 +162,13 @@ def back_bonuses(user: str, ticket_uid: str):
 
 
 def add_percent(added_bonuses: int, user: str, ticket: str):
-    db = psycopg2.connect(DB_URL)
+    db = psycopg2.connect(
+        database="privileges",
+        user="program",
+        password="test",
+        host="127.0.0.1",
+        port="5432"
+    )
     cursor = db.cursor()
     cursor.execute(f"SELECT username FROM privilege WHERE username = '{user}';")
     username = cursor.fetchone()

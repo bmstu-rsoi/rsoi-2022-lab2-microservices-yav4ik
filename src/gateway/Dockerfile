@@ -1,6 +1,6 @@
 From python:3.8
 COPY . /gateway
-COPY requirements.txt /flight/requirements.txt
+COPY requirements.txt /gateway/requirements.txt
 WORKDIR /gateway
 RUN pip install -r requirements.txt
 EXPOSE 8080

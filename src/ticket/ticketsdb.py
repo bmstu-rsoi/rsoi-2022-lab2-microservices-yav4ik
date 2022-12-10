@@ -31,7 +31,13 @@ def create_ticketsdb():
 
 
 def get_user_flight(user: str):
-    db = psycopg2.connect(DB_URL)
+    db = psycopg2.connect(
+        database="privileges",
+        user="program",
+        password="test",
+        host="127.0.0.1",
+        port="5432"
+    )
     cursor = db.cursor()
     cursor.execute(f"""SELECT ticket_uid, flight_number, price, status
                        FROM ticket 
@@ -43,7 +49,13 @@ def get_user_flight(user: str):
 
 
 def get_one_flight(ticketUid: str, user: str):
-    db = psycopg2.connect(DB_URL)
+    db = psycopg2.connect(
+        database="privileges",
+        user="program",
+        password="test",
+        host="127.0.0.1",
+        port="5432"
+    )
     cursor = db.cursor()
     cursor.execute(f"""SELECT ticket_uid, flight_number, price, status 
                        FROM ticket  
@@ -55,7 +67,13 @@ def get_one_flight(ticketUid: str, user: str):
 
 
 def add_ticker(ticketUid: str, user: str, flight_number: str, price: str):
-    db = psycopg2.connect(DB_URL)
+    db = psycopg2.connect(
+        database="privileges",
+        user="program",
+        password="test",
+        host="127.0.0.1",
+        port="5432"
+    )
     cursor = db.cursor()
     cursor.execute(f"INSERT INTO ticket (id, ticket_uid, username, flight_number, price, status) "
                    f"VALUES (DEFAULT, '{ticketUid}', '{user}', '{flight_number}', {price}, 'PAID');")
@@ -66,7 +84,13 @@ def add_ticker(ticketUid: str, user: str, flight_number: str, price: str):
 
 
 def change_ticker_status(ticketUid: str, user: str):
-    db = psycopg2.connect(DB_URL)
+    db = psycopg2.connect(
+        database="privileges",
+        user="program",
+        password="test",
+        host="127.0.0.1",
+        port="5432"
+    )
     cursor = db.cursor()
     cursor.execute(f"""UPDATE ticket SET status = 'CANCELED' WHERE ticket_uid = '{ticketUid}' and username = '{user}'""")
     db.commit()
