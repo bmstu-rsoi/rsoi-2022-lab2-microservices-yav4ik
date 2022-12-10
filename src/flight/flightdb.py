@@ -1,9 +1,4 @@
 import psycopg2
-import os
-
-host = os.environ['SERVERDB']
-password = os.environ['PASSWORDDB']
-database_user = os.environ['USER_AND_DEFAULT_DATABASE']
 
 
 def create_flightsdb():
