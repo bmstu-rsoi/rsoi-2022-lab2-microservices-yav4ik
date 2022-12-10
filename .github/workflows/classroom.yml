@@ -33,7 +33,7 @@ jobs:
 
       - name: Countdown
 
-        run: sleep 15s
+        run: sleep 25s
         shell: bash
 
       - name: Run API Tests

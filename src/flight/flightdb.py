@@ -1,20 +1,22 @@
 import psycopg2
 
-password = "test"
-user = "program"
-dbname = "postgres"
-port = "5432"
-host = "postgres"
-database = "flight"
+#DB_URL = "host='localhost' port = '5432' dbname='postgres' user='post' password='1234' "
+DB_URL = "host='postgres' port = '5432' dbname='postgres' user='program' password='test' "
+# password = "test"
+# user = "program"
+# dbname = "postgres"
+# port = "5432"
+# host = "postgres"
+# database = "flight"
+
+# password = "1234"
+# user = "post"
+# port = "5432"
+# host = "localhost"
+# database = "postgres"
 
 def create_flightsdb():
-    db = psycopg2.connect(
-        database=database,
-        user=user,
-        password=password,
-        host=host,
-        port=port
-    )
+    db = psycopg2.connect(DB_URL)
     cursor = db.cursor()
     cursor.execute("""
                     CREATE TABLE IF NOT EXISTS airport
@@ -38,17 +40,26 @@ def create_flightsdb():
                        """)
     db.commit()
 
-    cursor.execute(f"INSERT INTO airport (id, name, city, country) "
-                   f"VALUES (DEFAULT, 'Шереметьево', 'Москва', 'Россия');")
-    db.commit()
+    cursor.execute(f"SELECT name FROM airport WHERE name = 'Шереметьево'")
+    a = cursor.fetchone()
+    if not a:
+        cursor.execute(f"INSERT INTO airport (id, name, city, country) "
+                       f"VALUES (DEFAULT, 'Шереметьево', 'Москва', 'Россия');")
+        db.commit()
 
-    cursor.execute(f"INSERT INTO airport (id, name, city, country) "
-                   f"VALUES (DEFAULT, 'Пулково', 'Санкт-Петербург', 'Россия');")
-    db.commit()
+    cursor.execute(f"SELECT name FROM airport WHERE name = 'Пулково'")
+    a = cursor.fetchone()
+    if not a:
+        cursor.execute(f"INSERT INTO airport (id, name, city, country) "
+                       f"VALUES (DEFAULT, 'Пулково', 'Санкт-Петербург', 'Россия');")
+        db.commit()
 
-    cursor.execute(f"INSERT INTO flight (id, flight_number, datetime, from_airport_id, to_airport_id, price) "
-                   f"VALUES (DEFAULT, 'AFL031', timestamp '2021-10-08 20:00:00', 1, 2, 1500);")
-    db.commit()
+    cursor.execute(f"SELECT flight FROM flight WHERE flight_number = 'AFL031'")
+    a = cursor.fetchone()
+    if not a:
+        cursor.execute(f"INSERT INTO flight (id, flight_number, datetime, from_airport_id, to_airport_id, price) "
+                       f"VALUES (DEFAULT, 'AFL031', timestamp '2021-10-08 20:00:00', 1, 2, 1500);")
+        db.commit()
 
 
     cursor.close()
@@ -59,13 +70,7 @@ def create_flightsdb():
 def get_flights(page: int, size: int):
     left = str(page * size - size)
     right = str(page * size)
-    db = psycopg2.connect(
-        database=database,
-        user=user,
-        password=password,
-        host=host,
-        port=port
-    )
+    db = psycopg2.connect(DB_URL)
     cursor = db.cursor()
     cursor.execute(f"""SELECT flight.flight_number, airport_from.city, airport_from.name, airport_to.city, 
                        airport_to.name, flight.datetime, flight.price 
@@ -74,23 +79,13 @@ def get_flights(page: int, size: int):
                        JOIN airport AS airport_to ON airport_to.id = flight.to_airport_id 
                        WHERE flight.id > {left} and flight.id <= {right};""")
     flights = cursor.fetchall()
-    if flights:
-        rer_code = 405
-    else:
-        rer_code = 406
     cursor.close()
     db.close()
-    return flights, rer_code
+    return flights
 
 
 def get_flights_bynum(flight_num: str):
-    db = psycopg2.connect(
-        database=database,
-        user=user,
-        password=password,
-        host=host,
-        port=port
-    )
+    db = psycopg2.connect(DB_URL)
     cursor = db.cursor()
     cursor.execute(f""" SELECT flight.flight_number, airport_from.city, airport_from.name, airport_to.city, 
                         airport_to.name, flight.datetime, flight.price 

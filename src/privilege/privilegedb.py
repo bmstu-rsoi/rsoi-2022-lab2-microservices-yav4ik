@@ -1,21 +1,22 @@
 import psycopg2
 
-DB_URL = "host='localhost' port = '5432' dbname='postgres' user='post' password='1234' "
-password = "test"
-user = "program"
-dbname = "postgres"
-port = "5432"
-host = "postgres"
-database = "flight"
+#DB_URL = "host='localhost' port = '5432' dbname='postgres' user='post' password='1234' "
+DB_URL = "host='postgres' port = '5432' dbname='postgres' user='program' password='test' "
+# password = "test"
+# user = "program"
+# dbname = "postgres"
+# port = "5432"
+# host = "postgres"
+# database = "flight"
+
+# password = "1234"
+# user = "post"
+# port = "5432"
+# host = "localhost"
+# database = "postgres"
 
 def create_privilegedb():
-    db = psycopg2.connect(
-        database="privileges",
-        user="program",
-        password="test",
-        host="postgres",
-        port="5432"
-    )
+    db = psycopg2.connect(DB_URL)
     cursor = db.cursor()
     cursor.execute("""
                     CREATE TABLE IF NOT EXISTS privilege
@@ -41,22 +42,20 @@ def create_privilegedb():
                     );
                    """)
     db.commit()
-    cursor.execute(f"INSERT INTO privilege (id, username, status, balance) "
-                   f"VALUES (DEFAULT, 'Test Max', DEFAULT, 0);")
-    db.commit()
+
+    cursor.execute(f"SELECT privilege FROM privilege WHERE username = 'Test Max'")
+    a = cursor.fetchone()
+    if not a:
+        cursor.execute(f"INSERT INTO privilege (id, username, status, balance) "
+                       f"VALUES (DEFAULT, 'Test Max', DEFAULT, 0);")
+        db.commit()
     cursor.close()
     db.close()
     return
 
 
 def get_base_privilege(user: str):
-    db = psycopg2.connect(
-        database="privileges",
-        user="program",
-        password="test",
-        host="postgres",
-        port="5432"
-    )
+    db = psycopg2.connect(DB_URL)
     cursor = db.cursor()
     cursor.execute(f"SELECT status, balance, id "
                    f"FROM privilege "
@@ -69,13 +68,7 @@ def get_base_privilege(user: str):
 
 
 def get_all_privilege(user: str):
-    db = psycopg2.connect(
-        database="privileges",
-        user="program",
-        password="test",
-        host="postgres",
-        port="5432"
-    )
+    db = psycopg2.connect(DB_URL)
     cursor = db.cursor()
     cursor.execute(f"SELECT status, balance, id "
                    f"FROM privilege "
@@ -91,13 +84,7 @@ def get_all_privilege(user: str):
 
 
 def minus_bonuses(req_pay: int, user: str, ticket_uid: str):
-    db = psycopg2.connect(
-        database="privileges",
-        user="program",
-        password="test",
-        host="postgres",
-        port="5432"
-    )
+    db = psycopg2.connect(DB_URL)
     cursor = db.cursor()
     cursor.execute(f"SELECT username FROM privilege WHERE username = '{user}';")
     username = cursor.fetchone()
@@ -128,13 +115,7 @@ def minus_bonuses(req_pay: int, user: str, ticket_uid: str):
 
 
 def back_bonuses(user: str, ticket_uid: str):
-    db = psycopg2.connect(
-        database="privileges",
-        user="program",
-        password="test",
-        host="postgres",
-        port="5432"
-    )
+    db = psycopg2.connect(DB_URL)
     cursor = db.cursor()
     cursor.execute(f"SELECT id, balance FROM privilege WHERE username = '{user}';")
     status = cursor.fetchone()
@@ -167,13 +148,7 @@ def back_bonuses(user: str, ticket_uid: str):
 
 
 def add_percent(added_bonuses: int, user: str, ticket: str):
-    db = psycopg2.connect(
-        database="privileges",
-        user="program",
-        password="test",
-        host="postgres",
-        port="5432"
-    )
+    db = psycopg2.connect(DB_URL)
     cursor = db.cursor()
     cursor.execute(f"SELECT username FROM privilege WHERE username = '{user}';")
     username = cursor.fetchone()

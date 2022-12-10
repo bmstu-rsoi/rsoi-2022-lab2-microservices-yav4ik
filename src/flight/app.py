@@ -8,7 +8,7 @@ app = Flask(__name__)
 def get_flights():
     page = int(request.args.get("page"))
     size = int(request.args.get("size"))
-    flights, ret_code = flightdb.get_flights(page, size)
+    flights = flightdb.get_flights(page, size)
     totalElements = len(flights)
     jsflights = []
     print(flights)
@@ -28,7 +28,8 @@ def get_flights():
         "totalElements": totalElements,
         "items": jsflights
     }
-    return json_flights, ret_code
+    print(json_flights)
+    return json_flights, 200
 
 @app.route('/api/v1/flights/<flight_num>', methods=["GET"])
 def get_flights_byticket(flight_num: str):

@@ -1,22 +1,23 @@
 import psycopg2
 
 #DB_URL = "host='localhost' port = '5432' dbname='postgres' user='post' password='1234' "
-password = "test"
-user = "program"
-dbname = "postgres"
+DB_URL = "host='postgres' port = '5432' dbname='postgres' user='program' password='test' "
+# password = "test"
+# user = "program"
+# dbname = "postgres"
+# port = "5432"
+# host = "postgres"
+# database = "flight"
+
+password = "1234"
+user = "post"
 port = "5432"
-host = "postgres"
-database = "flight"
+host = "localhost"
+database = "postgres"
 
 
 def create_ticketsdb():
-    db = psycopg2.connect(
-        database="tickets",
-        user="program",
-        password="test",
-        host="postgres",
-        port="5432"
-    )
+    db = psycopg2.connect(DB_URL)
     cursor = db.cursor()
     cursor.execute("""
                     CREATE TABLE IF NOT EXISTS ticket
@@ -37,13 +38,7 @@ def create_ticketsdb():
 
 
 def get_user_flight(user: str):
-    db = psycopg2.connect(
-        database="tickets",
-        user="program",
-        password="test",
-        host="postgres",
-        port="5432"
-    )
+    db = psycopg2.connect(DB_URL)
     cursor = db.cursor()
     cursor.execute(f"""SELECT ticket_uid, flight_number, price, status
                        FROM ticket 
@@ -55,13 +50,7 @@ def get_user_flight(user: str):
 
 
 def get_one_flight(ticketUid: str, user: str):
-    db = psycopg2.connect(
-        database="tickets",
-        user="program",
-        password="test",
-        host="postgres",
-        port="5432"
-    )
+    db = psycopg2.connect(DB_URL)
     cursor = db.cursor()
     cursor.execute(f"""SELECT ticket_uid, flight_number, price, status 
                        FROM ticket  
@@ -73,13 +62,7 @@ def get_one_flight(ticketUid: str, user: str):
 
 
 def add_ticker(ticketUid: str, user: str, flight_number: str, price: str):
-    db = psycopg2.connect(
-        database="tickets",
-        user="program",
-        password="test",
-        host="postgres",
-        port="5432"
-    )
+    db = psycopg2.connect(DB_URL)
     cursor = db.cursor()
     cursor.execute(f"INSERT INTO ticket (id, ticket_uid, username, flight_number, price, status) "
                    f"VALUES (DEFAULT, '{ticketUid}', '{user}', '{flight_number}', {price}, 'PAID');")
@@ -90,13 +73,7 @@ def add_ticker(ticketUid: str, user: str, flight_number: str, price: str):
 
 
 def change_ticker_status(ticketUid: str, user: str):
-    db = psycopg2.connect(
-        database="tickets",
-        user="program",
-        password="test",
-        host="postgres",
-        port="5432"
-    )
+    db = psycopg2.connect(DB_URL)
     cursor = db.cursor()
     cursor.execute(f"""UPDATE ticket SET status = 'CANCELED' WHERE ticket_uid = '{ticketUid}' and username = '{user}'""")
     db.commit()

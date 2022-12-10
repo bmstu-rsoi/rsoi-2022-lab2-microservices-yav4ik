@@ -7,6 +7,8 @@ from flask import Flask, request, jsonify, make_response
 app = Flask(__name__)
 
 
+gateway_ip = "localhost"
+
 @app.route('/api/v1/tickets/<user>', methods=["GET"])
 def get_tickets(user: str):
     # получить полеты
@@ -58,7 +60,7 @@ def get_tickets_post():
 def get_oneticket(user_login: str, ticketUid: str):
     # получить полет
     ticket = ticketsdb.get_one_flight(ticketUid, user_login)
-    req = requests.get(url=f"http://gateway:8080/api/v1/flights/{ticket[1]}")
+    req = requests.get(url=f"http://{gateway_ip}:8080/api/v1/flights/{ticket[1]}")
     info_flights = req.json()
     js_ticket = {
         "ticketUid": ticketUid,
