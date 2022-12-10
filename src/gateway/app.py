@@ -23,6 +23,7 @@ def get_flights():
     flight_response = requests.get(url=f"http://flight:8060/api/v1/flights?page={page}&size={size}")
     # if flight_response.status_code == 202:
     #     return {}, 202
+    return {}, flight_response.status_code
     if flight_response.status_code == 200:
         print(123)
         return flight_response.json(), 200

@@ -59,7 +59,6 @@ def create_flightsdb():
 def get_flights(page: int, size: int):
     left = str(page * size - size)
     right = str(page * size)
-    ret_code = 400
     db = psycopg2.connect(
         database=database,
         user=user,
@@ -67,7 +66,6 @@ def get_flights(page: int, size: int):
         host=host,
         port=port
     )
-    ret_code = 401
     cursor = db.cursor()
     cursor.execute(f"""SELECT flight.flight_number, airport_from.city, airport_from.name, airport_to.city, 
                        airport_to.name, flight.datetime, flight.price 
@@ -76,12 +74,13 @@ def get_flights(page: int, size: int):
                        JOIN airport AS airport_to ON airport_to.id = flight.to_airport_id 
                        WHERE flight.id > {left} and flight.id <= {right};""")
     flights = cursor.fetchall()
-    ret_code = 402
+    if flights:
+        rer_code = 405
+    else:
+        rer_code = 406
     cursor.close()
-    ret_code = 403
     db.close()
-    ret_code = 405
-    return flights, ret_code
+    return flights, rer_code
 
 
 def get_flights_bynum(flight_num: str):
