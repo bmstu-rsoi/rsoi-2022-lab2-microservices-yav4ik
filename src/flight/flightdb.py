@@ -8,10 +8,10 @@ database_user = os.environ['USER_AND_DEFAULT_DATABASE']
 
 def create_flightsdb():
     db = psycopg2.connect(
-        database=database_user,
-        user=database_user,
-        password=password,
-        host=host,
+        database="flights",
+        user="program",
+        password="test",
+        host="postgres",
         port="5432"
     )
     cursor = db.cursor()
@@ -59,10 +59,10 @@ def get_flights(page: int, size: int):
     left = str(page * size - size)
     right = str(page * size)
     db = psycopg2.connect(
-        database=database_user,
-        user=database_user,
-        password=password,
-        host=host,
+        database="flights",
+        user="program",
+        password="test",
+        host="postgres",
         port="5432"
     )
     cursor = db.cursor()
@@ -80,10 +80,10 @@ def get_flights(page: int, size: int):
 
 def get_flights_bynum(flight_num: str):
     db = psycopg2.connect(
-        database=database_user,
-        user=database_user,
-        password=password,
-        host=host,
+        database="flights",
+        user="program",
+        password="test",
+        host="postgres",
         port="5432"
     )
     cursor = db.cursor()
