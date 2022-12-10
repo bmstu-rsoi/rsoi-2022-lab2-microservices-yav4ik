@@ -1,13 +1,19 @@
 import psycopg2
 
+password = "test"
+user = "program"
+dbname = "postgres"
+port = "5432"
+host = "postgres"
+database = "flight"
 
 def create_flightsdb():
     db = psycopg2.connect(
-        database="flight",
-        user="program",
-        password="test",
-        host="postgres",
-        port="5432"
+        database=database,
+        user=user,
+        password=password,
+        host=host,
+        port=port
     )
     cursor = db.cursor()
     cursor.execute("""
@@ -54,11 +60,11 @@ def get_flights(page: int, size: int):
     left = str(page * size - size)
     right = str(page * size)
     db = psycopg2.connect(
-        database="flight",
-        user="program",
-        password="test",
-        host="postgres",
-        port="5432"
+        database=database,
+        user=user,
+        password=password,
+        host=host,
+        port=port
     )
     cursor = db.cursor()
     cursor.execute(f"""SELECT flight.flight_number, airport_from.city, airport_from.name, airport_to.city, 
@@ -75,11 +81,11 @@ def get_flights(page: int, size: int):
 
 def get_flights_bynum(flight_num: str):
     db = psycopg2.connect(
-        database="flight",
-        user="program",
-        password="test",
-        host="postgres",
-        port="5432"
+        database=database,
+        user=user,
+        password=password,
+        host=host,
+        port=port
     )
     cursor = db.cursor()
     cursor.execute(f""" SELECT flight.flight_number, airport_from.city, airport_from.name, airport_to.city, 

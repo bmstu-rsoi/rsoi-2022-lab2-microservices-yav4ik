@@ -1,6 +1,12 @@
 import psycopg2
 
-#DB_URL = "host='localhost' port = '5432' dbname='postgres' user='post' password='1234' "
+DB_URL = "host='localhost' port = '5432' dbname='postgres' user='post' password='1234' "
+password = "test"
+user = "program"
+dbname = "postgres"
+port = "5432"
+host = "postgres"
+database = "flight"
 
 def create_privilegedb():
     db = psycopg2.connect(
