@@ -58,7 +58,7 @@ def get_tickets_post():
 def get_oneticket(user_login: str, ticketUid: str):
     # получить полет
     ticket = ticketsdb.get_one_flight(ticketUid, user_login)
-    req = requests.get(url=f"http://10.5.0.3:8080/api/v1/flights/{ticket[1]}")
+    req = requests.get(url=f"http://gateway:8080/api/v1/flights/{ticket[1]}")
     info_flights = req.json()
     js_ticket = {
         "ticketUid": ticketUid,

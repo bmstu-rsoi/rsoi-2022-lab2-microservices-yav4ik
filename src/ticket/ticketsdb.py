@@ -1,14 +1,17 @@
 import psycopg2
+import os
 
-DB_URL = "host='localhost' port = '5432' dbname='postgres' user='post' password='1234' "
-
+#DB_URL = "host='localhost' port = '5432' dbname='postgres' user='post' password='1234' "
+host = os.environ['SERVERDB']
+password = os.environ['PASSWORDDB']
+database_user = os.environ['USER_AND_DEFAULT_DATABASE']
 
 def create_ticketsdb():
     db = psycopg2.connect(
-        database="tickets",
-        user="program",
-        password="test",
-        host="10.5.0.2",
+        database=database_user,
+        user=database_user,
+        password=password,
+        host=host,
         port="5432"
     )
     cursor = db.cursor()
@@ -32,10 +35,10 @@ def create_ticketsdb():
 
 def get_user_flight(user: str):
     db = psycopg2.connect(
-        database="privileges",
-        user="program",
-        password="test",
-        host="10.5.0.2",
+        database=database_user,
+        user=database_user,
+        password=password,
+        host=host,
         port="5432"
     )
     cursor = db.cursor()
@@ -50,10 +53,10 @@ def get_user_flight(user: str):
 
 def get_one_flight(ticketUid: str, user: str):
     db = psycopg2.connect(
-        database="privileges",
-        user="program",
-        password="test",
-        host="10.5.0.2",
+        database=database_user,
+        user=database_user,
+        password=password,
+        host=host,
         port="5432"
     )
     cursor = db.cursor()
@@ -68,10 +71,10 @@ def get_one_flight(ticketUid: str, user: str):
 
 def add_ticker(ticketUid: str, user: str, flight_number: str, price: str):
     db = psycopg2.connect(
-        database="privileges",
-        user="program",
-        password="test",
-        host="10.5.0.2",
+        database=database_user,
+        user=database_user,
+        password=password,
+        host=host,
         port="5432"
     )
     cursor = db.cursor()
@@ -85,10 +88,10 @@ def add_ticker(ticketUid: str, user: str, flight_number: str, price: str):
 
 def change_ticker_status(ticketUid: str, user: str):
     db = psycopg2.connect(
-        database="privileges",
-        user="program",
-        password="test",
-        host="10.5.0.2",
+        database=database_user,
+        user=database_user,
+        password=password,
+        host=host,
         port="5432"
     )
     cursor = db.cursor()

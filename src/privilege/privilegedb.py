@@ -1,14 +1,17 @@
 import psycopg2
+import os
 
-DB_URL = "host='localhost' port = '5432' dbname='postgres' user='post' password='1234' "
-
+#DB_URL = "host='localhost' port = '5432' dbname='postgres' user='post' password='1234' "
+host = os.environ['SERVERDB']
+password = os.environ['PASSWORDDB']
+database_user = os.environ['USER_AND_DEFAULT_DATABASE']
 
 def create_privilegedb():
     db = psycopg2.connect(
-        database="privileges",
-        user="program",
-        password="test",
-        host="10.5.0.2",
+        database=database_user,
+        user=database_user,
+        password=password,
+        host=host,
         port="5432"
     )
     cursor = db.cursor()
@@ -46,10 +49,10 @@ def create_privilegedb():
 
 def get_base_privilege(user: str):
     db = psycopg2.connect(
-        database="privileges",
-        user="program",
-        password="test",
-        host="10.5.0.2",
+        database=database_user,
+        user=database_user,
+        password=password,
+        host=host,
         port="5432"
     )
     cursor = db.cursor()
@@ -65,10 +68,10 @@ def get_base_privilege(user: str):
 
 def get_all_privilege(user: str):
     db = psycopg2.connect(
-        database="privileges",
-        user="program",
-        password="test",
-        host="10.5.0.2",
+        database=database_user,
+        user=database_user,
+        password=password,
+        host=host,
         port="5432"
     )
     cursor = db.cursor()
@@ -87,10 +90,10 @@ def get_all_privilege(user: str):
 
 def minus_bonuses(req_pay: int, user: str, ticket_uid: str):
     db = psycopg2.connect(
-        database="privileges",
-        user="program",
-        password="test",
-        host="10.5.0.2",
+        database=database_user,
+        user=database_user,
+        password=password,
+        host=host,
         port="5432"
     )
     cursor = db.cursor()
@@ -124,10 +127,10 @@ def minus_bonuses(req_pay: int, user: str, ticket_uid: str):
 
 def back_bonuses(user: str, ticket_uid: str):
     db = psycopg2.connect(
-        database="privileges",
-        user="program",
-        password="test",
-        host="10.5.0.2",
+        database=database_user,
+        user=database_user,
+        password=password,
+        host=host,
         port="5432"
     )
     cursor = db.cursor()
@@ -163,10 +166,10 @@ def back_bonuses(user: str, ticket_uid: str):
 
 def add_percent(added_bonuses: int, user: str, ticket: str):
     db = psycopg2.connect(
-        database="privileges",
-        user="program",
-        password="test",
-        host="10.5.0.2",
+        database=database_user,
+        user=database_user,
+        password=password,
+        host=host,
         port="5432"
     )
     cursor = db.cursor()
