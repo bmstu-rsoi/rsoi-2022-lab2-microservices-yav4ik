@@ -71,9 +71,9 @@ def create_flightsdb():
 def get_flights(page: int, size: int):
     left = str(page * size - size)
     right = str(page * size)
+    return {}, 202
     db = psycopg2.connect(DB_URL)
     cursor = db.cursor()
-    return {}, 201
     cursor.execute(f"""SELECT flight.flight_number, airport_from.city, airport_from.name, airport_to.city, 
                        airport_to.name, flight.datetime, flight.price 
                        FROM flight 
