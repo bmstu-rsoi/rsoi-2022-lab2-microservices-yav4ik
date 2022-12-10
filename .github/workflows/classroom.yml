@@ -29,19 +29,15 @@ jobs:
           docker compose up -d
           ./scripts/wait-script.sh
         env:
-          WAIT_PORTS: 8080,8070,8060,8050
+          WAIT_PORTS: 8080,8070,8060,8050,5432
 
       - name: Countdown
 
-        run: sleep 30s
+        run: sleep 15s
         shell: bash
 
       - name: Run API Tests
         uses: matt-ball/newman-action@master
-        env:
-          PASSWORDDB: ${{secrets.PASSWORDDB}}
-          SERVERDB: ${{secrets.SERVERDB}}
-          USER_AND_DEFAULT_DATABASE: ${{secrets.USER_AND_DEFAULT_DATABASE}}
         with:
           collection: v1/postman/collection.json
           environment: v1/postman/environment.json
