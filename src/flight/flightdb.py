@@ -2,9 +2,8 @@ import psycopg2
 
 
 def create_flightsdb():
-    print(create_flightsdb)
     db = psycopg2.connect(
-        database="flights",
+        database="flight",
         user="program",
         password="test",
         host="postgres",
@@ -55,7 +54,7 @@ def get_flights(page: int, size: int):
     left = str(page * size - size)
     right = str(page * size)
     db = psycopg2.connect(
-        database="flights",
+        database="flight",
         user="program",
         password="test",
         host="postgres",
@@ -76,7 +75,7 @@ def get_flights(page: int, size: int):
 
 def get_flights_bynum(flight_num: str):
     db = psycopg2.connect(
-        database="flights",
+        database="flight",
         user="program",
         password="test",
         host="postgres",
