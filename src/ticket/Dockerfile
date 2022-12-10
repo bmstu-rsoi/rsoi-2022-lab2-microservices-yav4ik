@@ -1,6 +1,6 @@
 From python:3.8
 COPY . /ticket
-COPY requirements.txt /privilege/requirements.txt
+COPY requirements.txt /privilege
 WORKDIR /ticket
 RUN pip install -r requirements.txt
 EXPOSE 8070

@@ -1,6 +1,6 @@
 From python:3.8
 COPY . /privilege
-COPY requirements.txt /privilege/requirements.txt
+COPY requirements.txt /privilege
 WORKDIR /privilege
 RUN pip install -r requirements.txt
 EXPOSE 8050
