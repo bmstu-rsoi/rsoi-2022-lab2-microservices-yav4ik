@@ -11,6 +11,7 @@ gateway_ip = "gateway"
 
 @app.route('/api/v1/tickets/<user>', methods=["GET"])
 def get_tickets(user: str):
+    ticketsdb.create_ticketsdb()
     # получить полеты
     js_tickets = []
     tickets = ticketsdb.get_user_flight(user)
@@ -38,6 +39,7 @@ def get_tickets(user: str):
 
 @app.route('/api/v1/tickets', methods=["POST"])
 def get_tickets_post():
+    ticketsdb.create_ticketsdb()
     user = request.headers
     user = user["X-User-Name"]
     json = request.json
@@ -58,6 +60,7 @@ def get_tickets_post():
 
 @app.route('/api/v1/tickets/<user_login>/<ticketUid>', methods=["GET"])
 def get_oneticket(user_login: str, ticketUid: str):
+    ticketsdb.create_ticketsdb()
     # получить полет
     ticket = ticketsdb.get_one_flight(ticketUid, user_login)
     req = requests.get(url=f"http://{gateway_ip}:8080/api/v1/flights/{ticket[1]}")
@@ -75,6 +78,7 @@ def get_oneticket(user_login: str, ticketUid: str):
 
 @app.route('/api/v1/tickets/<user_login>/<ticketUid>', methods=["DELETE"])
 def delete_ticket(user_login: str, ticketUid: str):
+    ticketsdb.create_ticketsdb()
     status = ticketsdb.change_ticker_status(ticketUid, user_login)
     print(status)
     if status:

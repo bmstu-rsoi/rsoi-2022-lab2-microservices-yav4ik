@@ -6,6 +6,7 @@ app = Flask(__name__)
 
 @app.route('/api/v1/privilege/<user>', methods=["GET"])
 def get_base_privilege(user: str):
+    privilegedb.create_privilegedb()
     privilege = privilegedb.get_base_privilege(user)
     json_privilege = {
         "balance": privilege[1],
@@ -15,6 +16,7 @@ def get_base_privilege(user: str):
 
 @app.route('/api/v1/privileges/<user>', methods=["GET"])
 def get_all_privilege(user: str):
+    privilegedb.create_privilegedb()
     privilege, history = privilegedb.get_all_privilege(user)
     json_history = []
     for i in history:
@@ -36,6 +38,7 @@ def get_all_privilege(user: str):
 
 @app.route("/api/v1/buy", methods=["POST"])
 def minus_bonuses():
+    privilegedb.create_privilegedb()
     user = request.headers
     user = user["X-User-Name"]
     json_buy = request.json
@@ -62,6 +65,7 @@ def minus_bonuses():
 
 @app.route("/api/v1/back_bonuses", methods=["POST"])
 def back_bonuses():
+    privilegedb.create_privilegedb()
     user = request.headers
     user = user["X-User-Name"]
     json_buy = request.json
