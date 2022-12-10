@@ -7,6 +7,7 @@ database_user = os.environ['USER_AND_DEFAULT_DATABASE']
 
 
 def create_flightsdb():
+    print(create_flightsdb)
     db = psycopg2.connect(
         database="flights",
         user="program",
