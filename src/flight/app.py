@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/api/v1/flights', methods=["GET"])
 def get_flights():
-    return {}, 202
+    # return {}, 202
     page = int(request.args.get("page"))
     size = int(request.args.get("size"))
     flights = flightdb.get_flights(page, size)
