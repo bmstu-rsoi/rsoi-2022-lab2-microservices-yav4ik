@@ -8,7 +8,7 @@ def create_ticketsdb():
         database="tickets",
         user="program",
         password="test",
-        host="postgres",
+        host="localhost",
         port="5432"
     )
     cursor = db.cursor()
@@ -35,7 +35,7 @@ def get_user_flight(user: str):
         database="privileges",
         user="program",
         password="test",
-        host="postgres",
+        host="localhost",
         port="5432"
     )
     cursor = db.cursor()
@@ -53,7 +53,7 @@ def get_one_flight(ticketUid: str, user: str):
         database="privileges",
         user="program",
         password="test",
-        host="postgres",
+        host="localhost",
         port="5432"
     )
     cursor = db.cursor()
@@ -71,7 +71,7 @@ def add_ticker(ticketUid: str, user: str, flight_number: str, price: str):
         database="privileges",
         user="program",
         password="test",
-        host="postgres",
+        host="localhost",
         port="5432"
     )
     cursor = db.cursor()
@@ -88,7 +88,7 @@ def change_ticker_status(ticketUid: str, user: str):
         database="privileges",
         user="program",
         password="test",
-        host="postgres",
+        host="localhost",
         port="5432"
     )
     cursor = db.cursor()

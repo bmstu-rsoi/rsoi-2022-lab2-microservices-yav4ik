@@ -6,7 +6,7 @@ def create_flightsdb():
         database="flights",
         user="program",
         password="test",
-        host="postgres",
+        host="localhost",
         port="5432"
     )
     cursor = db.cursor()
@@ -57,7 +57,7 @@ def get_flights(page: int, size: int):
         database="flights",
         user="program",
         password="test",
-        host="postgres",
+        host="localhost",
         port="5432"
     )
     cursor = db.cursor()
@@ -78,7 +78,7 @@ def get_flights_bynum(flight_num: str):
         database="flights",
         user="program",
         password="test",
-        host="postgres",
+        host="localhost",
         port="5432"
     )
     cursor = db.cursor()
