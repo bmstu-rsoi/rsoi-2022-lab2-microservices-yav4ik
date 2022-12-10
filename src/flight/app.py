@@ -8,8 +8,8 @@ app = Flask(__name__)
 def get_flights():
     page = int(request.args.get("page"))
     size = int(request.args.get("size"))
+    return {}, 202
     flights, num = flightdb.get_flights(page, size)
-    return flights, num
     totalElements = len(flights)
     jsflights = []
     print(flights)

@@ -79,7 +79,6 @@ def get_flights(page: int, size: int):
                        JOIN airport AS airport_from ON airport_from.id = flight.from_airport_id 
                        JOIN airport AS airport_to ON airport_to.id = flight.to_airport_id 
                        WHERE flight.id > {left} and flight.id <= {right};""")
-    return {}, 202
     flights = cursor.fetchall()
     cursor.close()
     db.close()
