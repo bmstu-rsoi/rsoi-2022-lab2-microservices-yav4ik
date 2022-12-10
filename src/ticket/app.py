@@ -18,7 +18,7 @@ def get_tickets(user: str):
     if tickets:
         for ticket in tickets:
             print()
-            req = requests.get(url=f"http://{gateway_ip}:8060/api/v1/flights/{ticket[1]}")
+            req = requests.get(url=f"http://{gateway_ip}:8080/api/v1/flights/{ticket[1]}")
             info_flights = req.json()
             js_ticket = {
                 "ticketUid": ticket[0],
@@ -34,7 +34,7 @@ def get_tickets(user: str):
         return js_tickets, 200
 
     else:
-        return None, 404
+        return {}, 404
 
 
 @app.route('/api/v1/tickets', methods=["POST"])
