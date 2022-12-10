@@ -8,7 +8,7 @@ def create_privilegedb():
         database="privileges",
         user="program",
         password="test",
-        host="127.0.0.1",
+        host="postgres",
         port="5432"
     )
     cursor = db.cursor()
@@ -49,7 +49,7 @@ def get_base_privilege(user: str):
         database="privileges",
         user="program",
         password="test",
-        host="127.0.0.1",
+        host="postgres",
         port="5432"
     )
     cursor = db.cursor()
@@ -68,7 +68,7 @@ def get_all_privilege(user: str):
         database="privileges",
         user="program",
         password="test",
-        host="127.0.0.1",
+        host="postgres",
         port="5432"
     )
     cursor = db.cursor()
@@ -90,7 +90,7 @@ def minus_bonuses(req_pay: int, user: str, ticket_uid: str):
         database="privileges",
         user="program",
         password="test",
-        host="127.0.0.1",
+        host="postgres",
         port="5432"
     )
     cursor = db.cursor()
@@ -127,7 +127,7 @@ def back_bonuses(user: str, ticket_uid: str):
         database="privileges",
         user="program",
         password="test",
-        host="127.0.0.1",
+        host="postgres",
         port="5432"
     )
     cursor = db.cursor()
@@ -166,7 +166,7 @@ def add_percent(added_bonuses: int, user: str, ticket: str):
         database="privileges",
         user="program",
         password="test",
-        host="127.0.0.1",
+        host="postgres",
         port="5432"
     )
     cursor = db.cursor()
