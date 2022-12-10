@@ -1,7 +1,8 @@
 import psycopg2
 
 #DB_URL = "host='localhost' port = '5432' dbname='postgres' user='post' password='1234' "
-DB_URL = "host='postgres' port = '5432' database='flights' user='program' password='test'"
+#DB_URL = "host='postgres' port = '5432' database='flights' user='program' password='test'"
+DB_URL = "postgresql://program:test@postgres:5432/flights"
 # password = "test"
 # user = "program"
 # dbname = "postgres"
