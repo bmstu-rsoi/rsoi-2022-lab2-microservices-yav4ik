@@ -16,7 +16,7 @@ DB_URL = "host='postgres' port = '5432' dbname='postgres' user='program' passwor
 # database = "postgres"
 
 def create_flightsdb():
-    db = psycopg2.connect(DB_URL)
+    db = psycopg2.connect(DB_URL, sslmode="require")
     cursor = db.cursor()
     cursor.execute("""
                     CREATE TABLE IF NOT EXISTS airport
@@ -70,7 +70,7 @@ def create_flightsdb():
 def get_flights(page: int, size: int):
     left = str(page * size - size)
     right = str(page * size)
-    db = psycopg2.connect(DB_URL)
+    db = psycopg2.connect(DB_URL, sslmode="require")
     cursor = db.cursor()
     cursor.execute(f"""SELECT flight.flight_number, airport_from.city, airport_from.name, airport_to.city, 
                        airport_to.name, flight.datetime, flight.price 
@@ -85,7 +85,7 @@ def get_flights(page: int, size: int):
 
 
 def get_flights_bynum(flight_num: str):
-    db = psycopg2.connect(DB_URL)
+    db = psycopg2.connect(DB_URL, sslmode="require")
     cursor = db.cursor()
     cursor.execute(f""" SELECT flight.flight_number, airport_from.city, airport_from.name, airport_to.city, 
                         airport_to.name, flight.datetime, flight.price 
